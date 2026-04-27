@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Медичні дослідження</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <div>
+          <h1>Медичні дослідження</h1>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-primary" id="addStudyBtn">Додати запис</button>
+        </div>
+      </header>
+
+      <section class="card">
+        <div class="card-head">
+          <div>
+            <h2>Список досліджень</h2>
+            <p class="muted" id="studyCount">0 записів</p>
+          </div>
+          <div class="pagination" aria-label="Пагінація">
+            <div class="pagination-info">
+              <span class="muted" id="rangeInfo">0-0 з 0</span>
+              <span class="muted" id="pageInfo">Сторінка 1</span>
+            </div>
+            <div class="pagination-actions">
+              <button class="btn btn-ghost" id="prevPageBtn" type="button">Назад</button>
+              <button class="btn btn-primary" id="nextPageBtn" type="button">Далі</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="legend">
+            <span class="dot dot-new"></span>
+            <span class="legend-label">Нове</span>
+            <span class="dot dot-review"></span>
+            <span class="legend-label">На перевірці</span>
+            <span class="dot dot-confirmed"></span>
+            <span class="legend-label">Підтверджено</span>
+            <span class="dot dot-archived"></span>
+            <span class="legend-label">Архів</span>
+          </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Пацієнт</th>
+                <th>Email</th>
+                <th>Лікар</th>
+                <th>Спеціалізація</th>
+                <th>Статус</th>
+                <th>Файл</th>
+                <th>Дії</th>
+              </tr>
+            </thead>
+            <tbody id="studiesBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="emptyState" hidden>
+          Даних поки немає. Додайте перше дослідження.
+        </div>
+      </section>
+    </div>
+
+    <div class="modal hidden" id="studyModal" aria-hidden="true">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 id="modalTitle">Додати запис</h3>
+          <button class="icon-btn" id="closeModal" type="button">x</button>
+        </div>
+        <form id="studyForm">
+          <div class="form-grid">
+            <label>
+              Ім'я пацієнта
+              <input name="patient_first_name" required />
+            </label>
+            <label>
+              Прізвище пацієнта
+              <input name="patient_last_name" required />
+            </label>
+            <label class="span-2">
+              Email
+              <input name="patient_email" type="email" required />
+            </label>
+            <label>
+              Лікар
+              <input name="doctor_name" required />
+            </label>
+            <label>
+              Спеціалізація
+              <input name="specialization" required />
+            </label>
+            <label>
+              Статус
+              <select name="status" required>
+                <option value="new">Нове</option>
+                <option value="in_review">На перевірці</option>
+                <option value="confirmed">Підтверджено</option>
+                <option value="archived">Архів</option>
+              </select>
+            </label>
+            <label class="span-2">
+              Звіт
+              <textarea name="report_text" rows="3" required></textarea>
+            </label>
+            <label class="span-2">
+              Назва файлу дослідження
+              <input name="study_file_name" required />
+            </label>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-ghost" type="button" id="cancelModal">Скасувати</button>
+            <button class="btn btn-primary" type="submit" id="saveBtn">Зберегти</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
