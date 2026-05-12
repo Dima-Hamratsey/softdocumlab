@@ -76,10 +76,8 @@ REPORT_SNIPPETS = [
 @dataclass
 class CsvGenerator:
     rows: int
-    seed: int
 
     def generate(self, file_path: str) -> None:
-        random.seed(self.seed)
         with open(file_path, "w", newline="", encoding="utf-8") as handle:
             writer = csv.DictWriter(handle, fieldnames=FIELDNAMES)
             writer.writeheader()
@@ -116,16 +114,10 @@ def main() -> None:
         default=1000,
         help="Number of rows to generate (min 1000)",
     )
-    parser.add_argument(
-        "--seed",
-        type=int,
-        default=42,
-        help="Random seed for reproducible output",
-    )
     args = parser.parse_args()
 
     rows = max(args.rows, 1000)
-    generator = CsvGenerator(rows=rows, seed=args.seed)
+    generator = CsvGenerator(rows=rows)
     generator.generate(args.out)
     print(f"Generated rows: {rows} -> {args.out}")
 

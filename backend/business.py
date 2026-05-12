@@ -1,6 +1,6 @@
 from typing import Optional
 
-from interfaces import IDataAccess, IImportService, ImportRecord
+from interfaces import IDataAccess, IImportService, ImportRecord, StudyPayload
 
 
 class ImportService(IImportService):
@@ -19,11 +19,28 @@ class ImportService(IImportService):
     def list_patients(self, limit: int = 100) -> list[dict[str, object]]:
         return self._data_access.get_patients(limit)
 
-    def list_studies(self, limit: int = 100) -> list[dict[str, object]]:
-        return self._data_access.get_studies(limit)
+    def list_studies(self, limit: int = 100, offset: int = 0) -> list[dict[str, object]]:
+        return self._data_access.get_studies(limit, offset)
+
+    def get_study(self, study_id: int) -> Optional[dict[str, object]]:
+        return self._data_access.get_study(study_id)
+
+    def create_study(self, payload: StudyPayload) -> dict[str, object]:
+        return self._data_access.create_study(payload)
+
+    def update_study(
+        self, study_id: int, payload: StudyPayload
+    ) -> Optional[dict[str, object]]:
+        return self._data_access.update_study(study_id, payload)
+
+    def delete_study(self, study_id: int) -> bool:
+        return self._data_access.delete_study(study_id)
 
     def count_patients(self) -> int:
         return self._data_access.count_patients()
+
+    def count_studies(self) -> int:
+        return self._data_access.count_studies()
 
     def _map_row(self, row: dict[str, str]) -> Optional[ImportRecord]:
         email = self._clean(row.get("email", ""))
