@@ -1,0 +1,24 @@
+{
+  "api": {
+    "url": "https://data.cityofnewyork.us/resource/k397-673e.json",
+    "timeout_seconds": 10
+  },
+  "output": {
+    "type": "file",
+    "console": {},
+    "file": {
+      "path": "lab4_output.json",
+      "format": "jsonl"
+    },
+    "kafka": {
+      "bootstrap_servers": "localhost:9092",
+      "topic": "lab4_output"
+    },
+    "redis": {
+      "host": "localhost",
+      "port": 6380,
+      "db": 0,
+      "list_key": "lab4:output"
+    }
+  }
+}
